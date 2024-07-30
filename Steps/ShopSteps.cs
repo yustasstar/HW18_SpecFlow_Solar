@@ -10,7 +10,6 @@ namespace HW18_SpecFlow.Steps
     {
         internal static ShopPage _ShopPage;
 
-
         [BeforeScenario("@WebPage")]
         public static void FirstBeforeScenario()
         {
@@ -26,6 +25,5 @@ namespace HW18_SpecFlow.Steps
 
         [Then(@"""([^""]*)"" Heading is displayed")]
         public async Task ThenHeadingIsDisplayed(string heading) => await _ShopPage.IsPageH1Visible(heading);
-
     }
 }

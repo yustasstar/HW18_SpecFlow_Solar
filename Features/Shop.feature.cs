@@ -75,11 +75,11 @@ namespace HW18_SpecFlow.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Open Shop Page")]
-        [NUnit.Framework.CategoryAttribute("WebPageLogin")]
+        [NUnit.Framework.CategoryAttribute("WebPage")]
         public void OpenShopPage()
         {
             string[] tagsOfScenario = new string[] {
-                    "WebPageLogin"};
+                    "WebPage"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open Shop Page", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
