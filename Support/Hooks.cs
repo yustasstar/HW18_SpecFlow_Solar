@@ -1,10 +1,12 @@
 ﻿using Microsoft.Playwright;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.Support
 {
     [Binding]
-    public class Hooks
+    [Parallelizable(ParallelScope.Self)]
+    internal class Hooks 
     {
         public static IPage? Page { get; private set; }
         private static IBrowser? browser;

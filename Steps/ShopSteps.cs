@@ -1,39 +1,31 @@
 using HW18_SpecFlow.PageObjects;
 using HW18_SpecFlow.Support;
 using Microsoft.Playwright;
+using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.Steps
 {
     [Binding]
-    public sealed class ShopSteps
+    internal sealed class ShopSteps : Hooks
     {
-        public static ShopPage _ShopPage;
-        private static IPage page;
+        internal static ShopPage _ShopPage;
 
-        [BeforeFeature("@WebPageLogin")]
+
+        [BeforeScenario("@WebPage")]
         public static void FirstBeforeScenario()
         {
-            _ShopPage = new ShopPage(page);
+            _ShopPage = new ShopPage(Page);
         }
+
 
         [Given(@"GoTo Shop Page")]
-        public async Task GivenGoToShopPage()
-        {
-            await _ShopPage.GoToTestPageURL();
-        }
-
+        public async Task GivenGoToShopPage() => await _ShopPage.GoToTestPageURL();
 
         [When(@"Shop Page is loaded")]
-        public async Task WhenShopPageIsLoaded()
-        {
-            await _ShopPage.WaitForUrlLoading();
-        }
+        public async Task WhenShopPageIsLoaded() => await _ShopPage.WaitForUrlLoading();
 
         [Then(@"""([^""]*)"" Heading is displayed")]
-        public async Task ThenHeadingIsDisplayed(string heading)
-        {
-            await _ShopPage.IsPageH1Visible(heading);
-        }
+        public async Task ThenHeadingIsDisplayed(string heading) => await _ShopPage.IsPageH1Visible(heading);
 
     }
 }

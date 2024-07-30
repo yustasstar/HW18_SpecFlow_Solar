@@ -9,38 +9,34 @@ using System.Threading.Tasks;
 namespace HW18_SpecFlow.PageObjects
 {
     [Binding]
-    public class ShopPage
+    internal class ShopPage
     {
-        private readonly IPage page;
+        private readonly IPage Page;
+        private readonly string testPageUrl = "https://solartechnology.com.ua/shop";
+
         public ShopPage(IPage page)
         {
-            this.page = page;
+            Page = page;
         }
 
         #region Test DATA:
-        private readonly string testPageUrl = "https://solartechnology.com.ua/shop";
         //Locators:
         //private readonly string tableLocator = ".ReactTable";
-        //private readonly string rowLocator = ".rt-tr-group";
-        //private readonly string headerLocator = ".rt-th";
-        //private readonly string cellLocator = ".rt-td";
-        //private readonly string searchLocator = "Type to search";
-        //private readonly string addPopupLocator = ".modal-content";
         #endregion
 
         #region Page
         public async Task GoToTestPageURL()
         {
-            await page.GotoAsync(testPageUrl);
+            await Page.GotoAsync(testPageUrl);
         }
         public async Task WaitForUrlLoading()
         {
-            await page.WaitForURLAsync(testPageUrl);
+            await Page.WaitForURLAsync(testPageUrl);
         }
 
         public async Task IsPageH1Visible(string heading)
         {
-            await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
+            await Assertions.Expect(Page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
         }
         #endregion
     }

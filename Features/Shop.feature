@@ -1,6 +1,6 @@
 ﻿Feature: Shop Page
 
-@WebPageLogin
+@WebPage
 
 Scenario: Open Shop Page
 	Given GoTo Shop Page
