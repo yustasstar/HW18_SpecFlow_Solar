@@ -10,20 +10,28 @@ namespace HW18_SpecFlow.Steps
     {
         internal static ShopPage _ShopPage;
 
-        [BeforeScenario("@WebPage")]
+        [BeforeScenario("@ShopPage")]
         public static void FirstBeforeScenario()
         {
             _ShopPage = new ShopPage(Page);
         }
 
 
-        [Given(@"GoTo Shop page")]
+        [Given(@"I'm on Shop page")]
         public async Task GivenGoToShopPage() => await _ShopPage.GoToTestPageURL();
 
         [When(@"Shop page is loaded")]
         public async Task WhenShopPageIsLoaded() => await _ShopPage.WaitForUrlLoading();
 
-        [Then(@"""([^""]*)"" Heading is displayed")]
-        public async Task ThenHeadingIsDisplayed(string heading) => await _ShopPage.IsPageH1Visible(heading);
+        [Then(@"I see ""([^""]*)"" Heading is displayed")]
+        public async Task ThenHeadingIsDisplayed(string heading) => await _ShopPage.IsPageHeadingVisible(heading);
+        //________________________________
+
+        [When(@"I click on ""([^""]*)"" link")]
+        public async void WhenIClickOnLink(string linkName)
+        {
+            await _ShopPage.CLickToInvertorsLink(linkName);
+        }
+
     }
 }

@@ -27,10 +27,15 @@ namespace HW18_SpecFlow.PageObjects
             await page.WaitForURLAsync(testPageUrl);
         }
 
-        public async Task IsPageH1Visible(string heading)
+        public async Task IsPageHeadingVisible(string heading)
         {
             await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
         }
-  
+        public async Task CLickToInvertorsLink(string linkName)
+        {
+            await page.GetByRole(AriaRole.Link, new() { Name = linkName }).ClickAsync();
+            await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Сонячні інвертори" })).ToBeVisibleAsync();
+        }
+
     }
 }

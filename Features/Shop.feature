@@ -1,40 +1,52 @@
 ﻿Feature: Shop Page
 
-@WebPage
-
+@ShopPage
 Scenario: Verify Shop page Heading visability:
 	#Arrange:
-	Given GoTo Shop page
+	Given I'm on Shop page
 	#Act:
 	When Shop page is loaded
 	#Assert:
-	Then "Магазин" Heading is displayed
+	Then I see "Магазин" Heading is displayed
 
-	
+@ShopPage
 #Verify that catalog filter works correctly
-Scenario: Verify that catalog filter works correctly:
+Scenario: Move to Invertors page clicking to the link:
 	#Arrange:
 	Given I'm on Shop page
 	#Act:
-	When I move to Invertors page
-	And I click on "Фільтр товарів" button
-	And I click on "Huawei" checkbox
+	When I click on "Інвертори" link
 	#Assert:
-	Then I see "Huawei" products 
+	Then I see "Сонячні інвертори" Heading is displayed
 
 
-#Verify that product can be added and removed from the Shopping Cart
-Scenario: Verify that product can be added and removed from the Shopping Cart:
-	#Arrange:
-	Given I'm on Shop page
-	#Act:
-	When I add first proguct in cart
-	And I close info popup
-	And I add second proguct in cart
-	And I move to the cart
+#	And I click on "Фільтр товарів" button
+#	And I click on "Huawei" checkbox
+#	Then I see "Huawei" products 
+#
+#
+##Verify that product can be added and removed from the Shopping Cart
+#Scenario: Verify that product can be added and removed from the Shopping Cart:
+#	#Arrange:
+#	Given I'm on Shop page
+#	#Act:
+#	When I add first proguct in the Cart
+#	And I continue buying
+#	And I add second product in the Cart
+#	And I move to the cart
+#	And I deleted second product from the Cart 
+#
+#	#Assert:
+#	Then I see first proguct in the Cart
+#	Then I don't see second proguct in the Cart
+#
+##Verify that when user clicks on the product then there is a same name/model is displayed on Product Details which was on the product grid (for example when user clicks on some product like "Jinko Solar 455 Âò" on https://solartechnology.com.ua/shop/solar-panels then exactly this product details are shown but not some other product's details)
+#
+#Scenario: Verify that when user clicks on the product then there is a same name/model is displayed on Product Details which was on the product grid:
+#	#Arrange:
+#	Given I'm on Shop page
+#	#Act:
+#	When I click on the product
+#	#Assert:
+#	Then I see proguct details
 
-	#Assert:
-	Then I see "Huawei" products 
-
-
-#Verify that when user clicks on the product then there is a same name/model is displayed on Product Details which was on the product grid (for example when user clicks on some product like "Jinko Solar 455 Âò" on https://solartechnology.com.ua/shop/solar-panels then exactly this product details are shown but not some other product's details)
