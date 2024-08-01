@@ -1,43 +1,36 @@
-﻿using HW18_SpecFlow.Support;
-using Microsoft.Playwright;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Playwright;
+using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
 {
     [Binding]
-    internal class ShopPage
+    public class ShopPage
     {
-        private readonly IPage Page;
+        private readonly IPage page;
         private readonly string testPageUrl = "https://solartechnology.com.ua/shop";
 
         public ShopPage(IPage page)
         {
-            Page = page;
+            this.page = page;
         }
 
         #region Test DATA:
-        //Locators:
-        //private readonly string tableLocator = ".ReactTable";
         #endregion
 
-        #region Page
         public async Task GoToTestPageURL()
         {
-            await Page.GotoAsync(testPageUrl);
+            await page.GotoAsync(testPageUrl);
         }
+
         public async Task WaitForUrlLoading()
         {
-            await Page.WaitForURLAsync(testPageUrl);
+            await page.WaitForURLAsync(testPageUrl);
         }
 
         public async Task IsPageH1Visible(string heading)
         {
-            await Assertions.Expect(Page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
+            await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
         }
-        #endregion
+  
     }
 }

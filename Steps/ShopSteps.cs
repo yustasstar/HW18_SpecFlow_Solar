@@ -17,10 +17,10 @@ namespace HW18_SpecFlow.Steps
         }
 
 
-        [Given(@"GoTo Shop Page")]
+        [Given(@"GoTo Shop page")]
         public async Task GivenGoToShopPage() => await _ShopPage.GoToTestPageURL();
 
-        [When(@"Shop Page is loaded")]
+        [When(@"Shop page is loaded")]
         public async Task WhenShopPageIsLoaded() => await _ShopPage.WaitForUrlLoading();
 
         [Then(@"""([^""]*)"" Heading is displayed")]

@@ -22,11 +22,8 @@ namespace HW18_SpecFlow.Support
 
             var context = await browser.NewContextAsync(new BrowserNewContextOptions
             {
-                ViewportSize = new ViewportSize
-                {
-                    Width = 1890,
-                    Height = 950
-                }
+                ViewportSize = new ViewportSize { Width = 1890, Height = 950 },
+                Locale = "ua-UA"
             });
 
             Page = await context.NewPageAsync();
@@ -35,15 +32,8 @@ namespace HW18_SpecFlow.Support
         [AfterFeature]
         public static async Task Teardown()
         {
-            if (Page != null)
-            {
-                await Page.CloseAsync();
-            }
-
-            if (browser != null)
-            {
-                await browser.CloseAsync();
-            }
+            if (Page != null) { await Page.CloseAsync(); }
+            if (browser != null) { await browser.CloseAsync(); }
         }
     }
 }
