@@ -1,29 +1,48 @@
-﻿Feature: Shop Page
+﻿@ShopPageSetup
 
-@ShopPage
-Scenario: Verify Shop page Heading visability:
+Feature: InvertorsFilterTest
+
+As a User, I want to group products into pages,
+I can filter products by properties on those pages,
+I can add items to the cart, 
+and remove added items from the cart.
+
+Scenario Outline: Verify Shop page Heading visability:
 	#Arrange:
-	Given I'm on Shop page
+	Given I am on 'shop' page
 	#Act:
-	When Shop page is loaded
+	When 'shop' page is loaded
 	#Assert:
-	Then I see "Магазин" Heading is displayed
+	Then I see 'Магазин' Heading is displayed
 
-@ShopPage
+
+Scenario Outline: Move to <TabName> tab and check h1 <Heading>:
+	#Arrange:
+	Given I am on 'shop' page
+	#Act:
+	When I click on '<TabName>' tab
+	#Assert:
+	Then I see '<Heading>' Heading is displayed
+Examples:
+	| TabName            | Heading           |
+	| Сонячні панелі     | Сонячні панелі    |
+	| Інвертори          | Сонячні інвертори |
+	| Акумулятори        | Акумулятори       |
+	| Контролери заряду  | Контролери заряду |
+	| Системи кріплення  | Системи кріплення |
+	| Кабель і комутація | Сонячний кабель   |
+
+
 #Verify that catalog filter works correctly
-Scenario: Move to Invertors page clicking to the link:
+Scenario Outline: Filter products by Brand:
 	#Arrange:
-	Given I'm on Shop page
+	Given I am on 'shop/inverters' page
 	#Act:
-	When I click on "Інвертори" link
+	When I click on Filter button
+	And I check 'Huawei' filter
 	#Assert:
-	Then I see "Сонячні інвертори" Heading is displayed
+	Then I see 'Huawei' products
 
-
-#	And I click on "Фільтр товарів" button
-#	And I click on "Huawei" checkbox
-#	Then I see "Huawei" products 
-#
 #
 ##Verify that product can be added and removed from the Shopping Cart
 #Scenario: Verify that product can be added and removed from the Shopping Cart:

@@ -4,12 +4,13 @@ using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.Support
 {
-    [Binding]
     [Parallelizable(ParallelScope.Self)]
-    internal class Hooks
+    [Binding]
+    internal class UITestFixture
     {
         public static IPage? Page { get; private set; }
         private static IBrowser? browser;
+        internal static string baseUrl = "https://solartechnology.com.ua";
 
         [BeforeFeature(Order = 1)]
         public static async Task Setup()
@@ -22,11 +23,12 @@ namespace HW18_SpecFlow.Support
 
             var context = await browser.NewContextAsync(new BrowserNewContextOptions
             {
-                ViewportSize = new ViewportSize { Width = 1890, Height = 950 },
-                Locale = "ua-UA"
+                ViewportSize = new ViewportSize { Width = 1885, Height = 945 },
             });
 
             Page = await context.NewPageAsync();
+            Page.SetDefaultTimeout(15000);
+            //Page.PauseAsync();
         }
 
         [AfterFeature]
