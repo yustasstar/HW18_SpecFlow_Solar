@@ -53,6 +53,7 @@ namespace HW18_SpecFlow.Steps
         }
 
         [Then(@"I see '([^']*)' products")]
+        [Obsolete]
         public async Task ThenISeeProducts(string filterValue)
         {
             await _ShopPage.VerifyFilteredProducts(filterValue);

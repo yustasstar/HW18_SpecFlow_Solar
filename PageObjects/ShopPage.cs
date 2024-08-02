@@ -58,8 +58,8 @@ namespace HW18_SpecFlow.PageObjects
         {
             var filterCheckboxLocator = $"//span[text()='{filterValue}']";
             var filter = page.Locator(filterCheckboxLocator);
-            await filter.CheckAsync();
 
+            await filter.CheckAsync();
             await Assertions.Expect(filter).ToBeCheckedAsync();
         }
 
@@ -76,6 +76,5 @@ namespace HW18_SpecFlow.PageObjects
             bool allContainFilterValue = productsList.All(product => product.Contains(filterValue));
             Assert.That(allContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
         }
-
     }
 }
