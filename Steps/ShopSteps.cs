@@ -22,16 +22,10 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.GoToPageURL($"{baseUrl}/{pageUrl}");
         }
 
-        [When(@"'([^']*)' page is loaded")]
-        public async Task WhenPageIsLoaded(string pageUrl)
+        [Then(@"I see '([^']*)' is displayed")]
+        public async Task ThenHeadingIsDisplayed(string h1)
         {
-            await _ShopPage.WaitForUrlLoading($"{baseUrl}/{pageUrl}");
-        }
-
-        [Then(@"I see '([^']*)' Heading is displayed")]
-        public async Task ThenHeadingIsDisplayed(string heading)
-        {
-            await _ShopPage.VerifyH1Visability(heading);
+            await _ShopPage.VerifyH1Visability(h1);
         }
 
         [When(@"I click on '([^']*)' tab")]
@@ -58,5 +52,12 @@ namespace HW18_SpecFlow.Steps
         {
             await _ShopPage.VerifyFilteredProducts(filterValue);
         }
+
+        [When(@"I add '([^']*)' in the Cart")]
+        public async Task WhenIAddInTheCart(string product)
+        {
+            await _ShopPage.AddProductToCart(product);
+        }
+
     }
 }

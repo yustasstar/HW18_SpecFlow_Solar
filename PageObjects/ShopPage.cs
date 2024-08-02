@@ -1,6 +1,7 @@
 ﻿using HW18_SpecFlow.Support;
 using Microsoft.Playwright;
 using NUnit.Framework;
+using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
@@ -15,25 +16,24 @@ namespace HW18_SpecFlow.PageObjects
             this.page = page;
         }
 
+        #region Test DATA:
+        //Locators:
+
+        #endregion
+
         public async Task GoToPageURL(string testPageUrl)
         {
             await page.GotoAsync(testPageUrl);
-        }
 
-        public async Task WaitForUrlLoading(string testPageUrl)
-        {
             try
             {
-                // Attempt to perform actions on the page that might lead to a crash
                 await page.WaitForURLAsync(testPageUrl);
             }
             catch (PlaywrightException e)
             {
-                // Handle the crash gracefully
                 if (e.Message.Contains("crash"))
                 {
                     Console.WriteLine("Page crashed: " + e.Message);
-                    // Add additional crash recovery logic here
                 }
             }
         }
@@ -47,10 +47,12 @@ namespace HW18_SpecFlow.PageObjects
         {
             await page.GetByRole(AriaRole.Link, new() { Name = tabName }).ClickAsync();
         }
+
         public async Task ClickOnFilterButton()
         {
             var filterButtonLocator = "//*[contains(@class, 'filter-button')]";
             var filterButton = page.Locator(filterButtonLocator);
+
             await filterButton.ClickAsync();
         }
 
@@ -68,13 +70,17 @@ namespace HW18_SpecFlow.PageObjects
         {
             await page.WaitForNavigationAsync();
 
-            var product = page.Locator("//*[@class[starts-with(., 'list-product-title')]]");
-            var allProducts = await product.AllInnerTextsAsync();
+            var productTitle = page.Locator("//*[@class[starts-with(., 'list-product-title')]]");
+            var allProducts = await productTitle.AllInnerTextsAsync();
             var productsList = allProducts.ToList();
             Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by filter {filterValue} not found");
 
-            bool allContainFilterValue = productsList.All(product => product.Contains(filterValue));
-            Assert.That(allContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
+            bool isAllContainFilterValue = productsList.All(product => product.ToLower().Contains(filterValue.ToLower()));
+            Assert.That(isAllContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
+        }
+        public async Task AddProductToCart(string product)
+        {
+            await page.GetByRole(AriaRole.Link, new() { Name = product }).ClickAsync();
         }
     }
 }

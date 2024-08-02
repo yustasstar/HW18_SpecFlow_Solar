@@ -20,9 +20,9 @@ namespace HW18_SpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("InvertorsFilterTest")]
+    [NUnit.Framework.DescriptionAttribute("ShopPage")]
     [NUnit.Framework.CategoryAttribute("ShopPageSetup")]
-    public partial class InvertorsFilterTestFeature
+    public partial class ShopPageFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -37,7 +37,7 @@ namespace HW18_SpecFlow.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "InvertorsFilterTest", "As a User, I want to group products into pages,\r\nI can filter products by propert" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ShopPage", "As a User, I want to group products into pages,\r\nI can filter products by propert" +
                     "ies on those pages,\r\nI can add items to the cart, \r\nand remove added items from " +
                     "the cart.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
@@ -78,12 +78,20 @@ namespace HW18_SpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify Shop page Heading visability:")]
-        public void VerifyShopPageHeadingVisability()
+        [NUnit.Framework.DescriptionAttribute("Verify every Tab <h1>:")]
+        [NUnit.Framework.TestCaseAttribute("Сонячні панелі", "Сонячні панелі", null)]
+        [NUnit.Framework.TestCaseAttribute("Інвертори", "Сонячні інвертори", null)]
+        [NUnit.Framework.TestCaseAttribute("Акумулятори", "Акумулятори", null)]
+        [NUnit.Framework.TestCaseAttribute("Контролери заряду", "Контролери заряду", null)]
+        [NUnit.Framework.TestCaseAttribute("Системи кріплення", "Системи кріплення", null)]
+        [NUnit.Framework.TestCaseAttribute("Кабель і комутація", "Сонячний кабель", null)]
+        public void VerifyEveryTabH1(string tabName, string h1, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Shop page Heading visability:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("Tab Name", tabName);
+            argumentsOfScenario.Add("h1", h1);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify every Tab <h1>:", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -98,31 +106,39 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I am on \'shop\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 14
- testRunner.When("\'shop\' page is loaded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I click on \'{0}\' tab", tabName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
- testRunner.Then("I see \'Магазин\' Heading is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("I see \'{0}\' is displayed", h1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Move to <TabName> tab and check h1 <Heading>:")]
-        [NUnit.Framework.TestCaseAttribute("Сонячні панелі", "Сонячні панелі", null)]
-        [NUnit.Framework.TestCaseAttribute("Інвертори", "Сонячні інвертори", null)]
-        [NUnit.Framework.TestCaseAttribute("Акумулятори", "Акумулятори", null)]
-        [NUnit.Framework.TestCaseAttribute("Контролери заряду", "Контролери заряду", null)]
-        [NUnit.Framework.TestCaseAttribute("Системи кріплення", "Системи кріплення", null)]
-        [NUnit.Framework.TestCaseAttribute("Кабель і комутація", "Сонячний кабель", null)]
-        public void MoveToTabNameTabAndCheckH1Heading(string tabName, string heading, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Verify Filter:")]
+        [NUnit.Framework.TestCaseAttribute("inverters", "Huawei", null)]
+        [NUnit.Framework.TestCaseAttribute("inverters", "Deye", null)]
+        [NUnit.Framework.TestCaseAttribute("inverters", "Fronius", null)]
+        [NUnit.Framework.TestCaseAttribute("inverters", "LuxPower", null)]
+        [NUnit.Framework.TestCaseAttribute("inverters", "Victron Energy", null)]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "SOLA", null)]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "Abi-Solar", null)]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "Ulica Solar", null)]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "Yingli Solar", null)]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "JA Solar", null)]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "Jinko Solar", null)]
+        [NUnit.Framework.TestCaseAttribute("batteries", "AXIOMA", null)]
+        [NUnit.Framework.TestCaseAttribute("batteries", "BYD", null)]
+        [NUnit.Framework.TestCaseAttribute("batteries", "PYLONTECH", null)]
+        public void VerifyFilter(string tab, string filterValue, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("TabName", tabName);
-            argumentsOfScenario.Add("Heading", heading);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Move to <TabName> tab and check h1 <Heading>:", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 19
+            argumentsOfScenario.Add("Tab", tab);
+            argumentsOfScenario.Add("FilterValue", filterValue);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Filter:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -132,27 +148,33 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 21
- testRunner.Given("I am on \'shop\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 29
+ testRunner.Given(string.Format("I am on \'shop/{0}\' page", tab), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 23
- testRunner.When(string.Format("I click on \'{0}\' tab", tabName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.When("I click on Filter button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 25
- testRunner.Then(string.Format("I see \'{0}\' Heading is displayed", heading), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+ testRunner.And(string.Format("I check \'{0}\' filter", filterValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 34
+ testRunner.Then(string.Format("I see \'{0}\' products", filterValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Filter products by Brand:")]
-        public void FilterProductsByBrand()
+        [NUnit.Framework.DescriptionAttribute("Add/Delete to Cart:")]
+        [NUnit.Framework.TestCaseAttribute("inverters", "Huawei", null)]
+        public void AddDeleteToCart(string firstProduct, string secondProduct, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter products by Brand:", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 37
+            argumentsOfScenario.Add("First product", firstProduct);
+            argumentsOfScenario.Add("Second product", secondProduct);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add/Delete to Cart:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 57
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -162,17 +184,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 39
- testRunner.Given("I am on \'shop/inverters\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 59
+ testRunner.Given("I am on \'shop\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 41
- testRunner.When("I click on Filter button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 42
- testRunner.And("I check \'Huawei\' filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 44
- testRunner.Then("I see \'Huawei\' products", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 61
+ testRunner.When(string.Format("I add \'{0}\' in the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             }
             this.ScenarioCleanup();
