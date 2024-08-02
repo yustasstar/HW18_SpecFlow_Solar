@@ -63,8 +63,11 @@ namespace HW18_SpecFlow.PageObjects
             await Assertions.Expect(filter).ToBeCheckedAsync();
         }
 
+        [Obsolete]
         public async Task VerifyFilteredProducts(string filterValue)
         {
+            await page.WaitForNavigationAsync();
+
             var product = page.Locator("//*[@class[starts-with(., 'list-product-title')]]");
             var allProducts = await product.AllInnerTextsAsync();
             var productsList = allProducts.ToList();
