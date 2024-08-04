@@ -37,9 +37,9 @@ namespace HW18_SpecFlow.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ShopPage", "As a User, I want to group products into pages,\r\nI can filter products by propert" +
-                    "ies on those pages,\r\nI can add items to the cart, \r\nand remove added items from " +
-                    "the cart.", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ShopPage", "As a User, I want to group products into tabs,\r\nI can filter products by values o" +
+                    "n those tabs,\r\nI can add items to the cart, \r\nand remove added items from the ca" +
+                    "rt.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -166,7 +166,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add/Delete to Cart:")]
-        [NUnit.Framework.TestCaseAttribute("inverters", "Huawei", null)]
+        [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-50KTL-M3", "PYLONTECH US5000", null)]
         public void AddDeleteToCart(string firstProduct, string secondProduct, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

@@ -58,6 +58,5 @@ namespace HW18_SpecFlow.Steps
         {
             await _ShopPage.AddProductToCart(product);
         }
-
     }
 }

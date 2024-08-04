@@ -2,8 +2,8 @@
 
 Feature: ShopPage
 
-As a User, I want to group products into pages,
-I can filter products by properties on those pages,
+As a User, I want to group products into tabs,
+I can filter products by values on those tabs,
 I can add items to the cart, 
 and remove added items from the cart.
 
@@ -67,9 +67,9 @@ Scenario Outline: Add/Delete to Cart:
 	#Then I see '<First proguct>' in the Cart
 	#Then I don't see '<Second product>' in the Cart
 Examples:
-	| First product | Second product |
-	| inverters     | Huawei         |
-	#| inverters     | Deye           |
+	| First product           | Second product   |
+	| Huawei SUN2000-50KTL-M3 | PYLONTECH US5000 |
+
 
 
 ##Verify that when user clicks on the product then there is a same name/model is displayed on Product Details which was on the product grid (for example when user clicks on some product like "Jinko Solar 455 Âò" on https://solartechnology.com.ua/shop/solar-panels then exactly this product details are shown but not some other product's details)

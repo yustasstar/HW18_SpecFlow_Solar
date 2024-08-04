@@ -3,6 +3,7 @@ using Microsoft.Playwright;
 using NUnit.Framework;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
+using System.Linq;
 
 namespace HW18_SpecFlow.PageObjects
 {
@@ -69,18 +70,46 @@ namespace HW18_SpecFlow.PageObjects
         public async Task VerifyFilteredProducts(string filterValue)
         {
             await page.WaitForNavigationAsync();
+            var productTitleLocator = "//*[@class[starts-with(., 'list-product-title')]]";
 
-            var productTitle = page.Locator("//*[@class[starts-with(., 'list-product-title')]]");
-            var allProducts = await productTitle.AllInnerTextsAsync();
+            //var productTitle = page.Locator(productTitleLocator);
+            var allProducts = await page.Locator(productTitleLocator).AllInnerTextsAsync();
             var productsList = allProducts.ToList();
             Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by filter {filterValue} not found");
 
             bool isAllContainFilterValue = productsList.All(product => product.ToLower().Contains(filterValue.ToLower()));
             Assert.That(isAllContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
         }
-        public async Task AddProductToCart(string product)
+
+        public async Task AddProductToCart(string addProduct)
         {
-            await page.GetByRole(AriaRole.Link, new() { Name = product }).ClickAsync();
+            var productHolderLocator = "//*[contains(@class, 'card z-depth-1 hoverable')]";
+            var addToCartBtnLocator = "//*[@class[starts-with(., 'add-product-to-cart')]]";
+            var addModal = page.Locator("//*[@id='cart-modal']");
+
+            // Get all product holders on the page
+            var productCards = await page.QuerySelectorAllAsync(productHolderLocator);
+            Assert.That(productCards, Is.Not.Empty, "Products not found on the page");
+
+            // Iterate through each product holder to find the {addProduct}
+            foreach (var productCard in productCards)
+            {
+                var productName = await productCard.InnerTextAsync();
+                if (productName.ToLower().Contains(addProduct.ToLower()))
+                {
+                    var addToCartButton = await productCard.QuerySelectorAsync(addToCartBtnLocator);
+                    Assert.That(addToCartButton, Is.Not.Null, $"Add to cart button not found for product {addProduct}");
+
+                    await addToCartButton.ClickAsync();
+
+                    await Assertions.Expect(addModal).ToContainTextAsync($"{addProduct}");
+                    await Assertions.Expect(addModal).ToContainTextAsync($"Товар додано у кошик");
+
+                    return;
+                }
+            }
+            Console.WriteLine($"{addProduct} product not found on the page");
         }
     }
 }
+
