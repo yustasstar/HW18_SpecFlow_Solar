@@ -110,6 +110,15 @@ namespace HW18_SpecFlow.PageObjects
             }
             Console.WriteLine($"{addProduct} product not found on the page");
         }
+
+        public async Task ClickPopupBtn(string buttonName)
+        {
+            var addModal = page.Locator("//*[@id='cart-modal']");
+            var modalButton = page.GetByRole(AriaRole.Link, new() { Name = $"{buttonName}" });
+            await modalButton.ClickAsync();
+
+            await Assertions.Expect(addModal).Not.ToBeVisibleAsync();
+        }
     }
 }
 

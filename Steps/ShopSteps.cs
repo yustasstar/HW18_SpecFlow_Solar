@@ -58,5 +58,12 @@ namespace HW18_SpecFlow.Steps
         {
             await _ShopPage.AddProductToCart(product);
         }
+
+        [When(@"I click '([^']*)' button")]
+        public async Task WhenIContinueBuying(string button)
+        {
+            await _ShopPage.ClickPopupBtn(button);
+        }
+
     }
 }

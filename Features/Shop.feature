@@ -59,9 +59,10 @@ Scenario Outline: Add/Delete to Cart:
 	Given I am on 'shop' page
 	#Act:
 	When I add '<First product>' in the Cart
-	#And I continue buying
-	#And I add '<Second product>' in the Cart
-	#And I move to the cart
+	And I click 'Продовжити купувати' button
+	And I add '<Second product>' in the Cart
+	And I click 'Оформити замовлення' button
+	And I am on the 'cart' page see heading 'Товари у кошику'
 	#And I deleted '<Second product>' from the Cart
 	##Assert:
 	#Then I see '<First proguct>' in the Cart
