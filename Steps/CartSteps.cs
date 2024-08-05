@@ -52,7 +52,5 @@ namespace HW18_SpecFlow.Steps
         {
             await _CartPage.VerifyProductDeletedFromCart(removedProduct);
         }
-
-
     }
 }

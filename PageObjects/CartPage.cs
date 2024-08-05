@@ -31,6 +31,9 @@ namespace HW18_SpecFlow.PageObjects
 
         public async Task VerifyProductAddedToCart(string addProductName)
         {
+            //await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Товари у кошику" })).ToBeVisibleAsync();
+            //await Assertions.Expect(page.GetByText($"{addProductName}")).ToBeVisibleAsync();
+
             var productTitleLocator = "//*[contains(@class, 'prod-title')]";
             var allProducts = await page.Locator(productTitleLocator).AllInnerTextsAsync();
             var productsList = allProducts.ToList();
