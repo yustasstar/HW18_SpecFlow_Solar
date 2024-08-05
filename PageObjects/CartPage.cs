@@ -43,7 +43,6 @@ namespace HW18_SpecFlow.PageObjects
         {
             await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
         }
-
     }
 }
 

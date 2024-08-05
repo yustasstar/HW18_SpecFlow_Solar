@@ -165,16 +165,16 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add products to Cart:")]
+        [NUnit.Framework.DescriptionAttribute("Add/Remove product in Cart:")]
         [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-50KTL-M3", "PYLONTECH US5000", null)]
         [NUnit.Framework.TestCaseAttribute("Deye SUN-12K-SG04LP3-EU", "Huawei SUN2000-10KTL-M1", null)]
-        public void AddProductsToCart(string firstProduct, string secondProduct, string[] exampleTags)
+        public void AddRemoveProductInCart(string firstProduct, string secondProduct, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("First product", firstProduct);
             argumentsOfScenario.Add("Second product", secondProduct);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add products to Cart:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add/Remove product in Cart:", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 59
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -210,7 +210,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("I am on the \'cart\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 71
- testRunner.Then("I see heading \'Товари у кошику\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I see heading \'Товари у кошику\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

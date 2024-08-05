@@ -96,18 +96,19 @@ namespace HW18_SpecFlow.PageObjects
                 {
                     isProductFound = true;
                     var addToCartButton = await productCard.QuerySelectorAsync(addToCartBtnLocator);
-                    Assert.That(addToCartButton, Is.Not.Null, $"Add to cart button not found for product {addProduct}");
+                    Assert.That(addToCartButton, Is.Not.Null, $"'Add to cart button' not found for product {addProduct}");
 
                     //Add specified product to the cart
-                    await addToCartButton.ClickAsync();
-
+                    if (addToCartButton != null)
+                    {
+                        await addToCartButton.ClickAsync();
+                    }
                     await Assertions.Expect(addPopup).ToContainTextAsync($"{addProduct}");
                     await Assertions.Expect(addPopup).ToContainTextAsync($"Товар додано у кошик");
 
                     return;
                 }
             }
-            // Assert that the product was found and processed
             Assert.That(isProductFound, Is.True, $"Product '{addProduct}' is not found on the page");
         }
 

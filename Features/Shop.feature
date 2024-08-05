@@ -56,7 +56,7 @@ Examples:
 
 
 #Verify that product can be added and removed from the Shopping Cart
-Scenario Outline: Add products to Cart:
+Scenario Outline: Add/Remove product in Cart:
 	#Arrange:
 	Given I am on 'shop' page
 	#Act:
@@ -68,7 +68,15 @@ Scenario Outline: Add products to Cart:
 	And AddPopup is closed
 	#Assert:
 	Then I am on the 'cart' page
-	Then I see heading 'Товари у кошику'
+	And I see heading 'Товари у кошику'
+	#Then I see '<First proguct>' in the Cart	
+	#Then I see '<Second product>' in the Cart
+
+##Verify product removal:
+    #When I remove '<First product>' from the Cart
+    #Then I do not see '<First product>' in the Cart
+    #And I still see '<Second product>' in the Cart
+
 Examples:
 	| First product           | Second product          |
 	| Huawei SUN2000-50KTL-M3 | PYLONTECH US5000        |
