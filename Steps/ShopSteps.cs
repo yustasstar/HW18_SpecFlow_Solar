@@ -27,7 +27,7 @@ namespace HW18_SpecFlow.Steps
         //When/And (Act):
 
         [When(@"I click on '([^']*)' tab")]
-        public async Task WhenIClickOnLink(string tabName)
+        public async Task WhenIClickOnTab(string tabName)
         {
             await _ShopPage.ClickOnTabLink(tabName);
         }
@@ -47,7 +47,7 @@ namespace HW18_SpecFlow.Steps
         [When(@"I add '([^']*)' to the Cart")]
         public async Task WhenIAddProductToTheCart(string product)
         {
-            await _ShopPage.AddProductToCart(product);
+            await _ShopPage.AddSpecifiedProductToCart(product);
         }
 
         [When(@"I click '([^']*)' button")]
@@ -59,7 +59,7 @@ namespace HW18_SpecFlow.Steps
         [When(@"AddPopup is closed")]
         public async Task WhenAddPopupIsClosed()
         {
-            await _ShopPage.VerifyPopupClosed();
+            await _ShopPage.VerifyAddPopupNotVisible();
         }
 
         //Then (Assert):

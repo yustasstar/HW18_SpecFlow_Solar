@@ -77,7 +77,7 @@ namespace HW18_SpecFlow.PageObjects
             Assert.That(isListContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
         }
 
-        public async Task AddProductToCart(string addProduct)
+        public async Task AddSpecifiedProductToCart(string addProduct)
         {
             var productHolderLocator = "//*[contains(@class, 'card z-depth-1 hoverable')]";
             var addToCartBtnLocator = "//*[@class[starts-with(., 'add-product-to-cart')]]";
@@ -117,7 +117,7 @@ namespace HW18_SpecFlow.PageObjects
             await linkButton.ClickAsync();
         }
 
-        public async Task VerifyPopupClosed()
+        public async Task VerifyAddPopupNotVisible()
         {
             var addModal = page.Locator("//*[@id='cart-modal']");
             await Assertions.Expect(addModal).Not.ToBeVisibleAsync();
