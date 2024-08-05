@@ -16,17 +16,15 @@ namespace HW18_SpecFlow.Steps
             _ShopPage = new ShopPage(Page);
         }
 
+        //Given (Arrange):
+
         [Given(@"I am on '([^']*)' page")]
         public async Task GivenGoToPage(string pageUrl)
         {
             await _ShopPage.GoToPageURL($"{baseUrl}/{pageUrl}");
         }
 
-        [Then(@"I see '([^']*)' is displayed")]
-        public async Task ThenHeadingIsDisplayed(string h1)
-        {
-            await _ShopPage.VerifyH1Visability(h1);
-        }
+        //When/And (Act):
 
         [When(@"I click on '([^']*)' tab")]
         public async Task WhenIClickOnLink(string tabName)
@@ -40,11 +38,31 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.ClickOnFilterButton();
         }
 
-        [When(@"I check '([^']*)' filter")]
-        public async Task WhenIClickOnFilter(string filterValue)
+        [When(@"I click on '([^']*)' checkbox")]
+        public async Task WhenIClickOnFilterCheckbox(string filterValue)
         {
             await _ShopPage.VerifyFilterChecked(filterValue);
         }
+
+        [When(@"I add '([^']*)' to the Cart")]
+        public async Task WhenIAddProductToTheCart(string product)
+        {
+            await _ShopPage.AddProductToCart(product);
+        }
+
+        [When(@"I click '([^']*)' button")]
+        public async Task WhenIClickLinkButton(string buttonName)
+        {
+            await _ShopPage.ClickLinkButton(buttonName);
+        }
+        
+        [When(@"AddPopup is closed")]
+        public async Task WhenAddPopupIsClosed()
+        {
+            await _ShopPage.VerifyPopupClosed();
+        }
+
+        //Then (Assert):
 
         [Then(@"I see '([^']*)' products")]
         [Obsolete]
@@ -53,17 +71,10 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.VerifyFilteredProducts(filterValue);
         }
 
-        [When(@"I add '([^']*)' in the Cart")]
-        public async Task WhenIAddInTheCart(string product)
+        [Then(@"I see '([^']*)' heading is displayed")]
+        public async Task ThenHeadingIsDisplayed(string h1)
         {
-            await _ShopPage.AddProductToCart(product);
+            await _ShopPage.VerifyH1Visability(h1);
         }
-
-        [When(@"I click '([^']*)' button")]
-        public async Task WhenIContinueBuying(string button)
-        {
-            await _ShopPage.ClickPopupBtn(button);
-        }
-
     }
 }

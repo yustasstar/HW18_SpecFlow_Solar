@@ -16,7 +16,15 @@ namespace HW18_SpecFlow.Steps
             _CartPage = new CartPage(Page);
         }
 
-        [When(@"I am on the '([^']*)' page see heading '([^']*)'")]
+        //Given (Arrange):
+
+
+        //When (Act):
+
+
+        //Then (Assert):
+
+        [Then(@"I am on the '([^']*)' page see heading '([^']*)'")]
         public async Task WhenIAmOnThePageSee(string pageUrl, string text)
         {
             await _CartPage.VerifyPageUrl($"{baseUrl}/{pageUrl}");
