@@ -175,7 +175,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("First product", firstProduct);
             argumentsOfScenario.Add("Second product", secondProduct);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add/Remove product in Cart:", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 59
+#line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -185,17 +185,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 61
+#line 62
  testRunner.Given("I am on \'shop\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 63
+#line 64
  testRunner.When(string.Format("I add \'{0}\' to the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 64
- testRunner.And("I click \'Продовжити купувати\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 65
- testRunner.And("AddPopup is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click \'Продовжити купувати\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 66
  testRunner.And(string.Format("I add \'{0}\' to the Cart", secondProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -203,14 +200,26 @@ this.ScenarioInitialize(scenarioInfo);
 #line 67
  testRunner.And("I click \'Оформити замовлення\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 68
- testRunner.And("AddPopup is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 70
+#line 69
  testRunner.Then("I am on the \'cart\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 71
+#line 70
  testRunner.And("I see heading \'Товари у кошику\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 71
+ testRunner.And(string.Format("I see \'{0}\' in the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 72
+ testRunner.And(string.Format("I see \'{0}\' in the Cart", secondProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 74
+    testRunner.When(string.Format("I remove \'{0}\' from the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 76
+    testRunner.Then(string.Format("I do not see \'{0}\' in the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 77
+ testRunner.And(string.Format("I see \'{0}\' in the Cart", secondProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

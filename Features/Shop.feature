@@ -56,36 +56,29 @@ Examples:
 
 
 #Verify that product can be added and removed from the Shopping Cart
+
 Scenario Outline: Add/Remove product in Cart:
 	#Arrange:
 	Given I am on 'shop' page
-	#Act:
+	#Act 1 - Add products:
 	When I add '<First product>' to the Cart
 	And I click 'Продовжити купувати' button
-	And AddPopup is closed
 	And I add '<Second product>' to the Cart
 	And I click 'Оформити замовлення' button
-	And AddPopup is closed
-	#Assert:
+	#Assert 1 - Products added:
 	Then I am on the 'cart' page
 	And I see heading 'Товари у кошику'
-	#Then I see '<First proguct>' in the Cart	
-	#Then I see '<Second product>' in the Cart
-
-##Verify product removal:
-    #When I remove '<First product>' from the Cart
-    #Then I do not see '<First product>' in the Cart
-    #And I still see '<Second product>' in the Cart
-
+	And I see '<First product>' in the Cart	
+	And I see '<Second product>' in the Cart
+	#Act 2 - Remove product:
+    When I remove '<First product>' from the Cart
+	#Assert 2 - Products removed:
+    Then I do not see '<First product>' in the Cart
+	And I see '<Second product>' in the Cart
 Examples:
 	| First product           | Second product          |
 	| Huawei SUN2000-50KTL-M3 | PYLONTECH US5000        |
 	| Deye SUN-12K-SG04LP3-EU | Huawei SUN2000-10KTL-M1 |
-
-	
-	#And I deleted '<Second product>' from the Cart
-	#Then I see '<First proguct>' in the Cart
-	#Then I don't see '<Second product>' in the Car
 
 
 

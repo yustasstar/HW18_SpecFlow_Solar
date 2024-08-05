@@ -21,6 +21,11 @@ namespace HW18_SpecFlow.Steps
 
         //When (Act):
 
+        [When(@"I remove '([^']*)' from the Cart")]
+        public async Task WhenIRemoveFromTheCart(string removeProduct)
+        {
+            await _CartPage.RemoveProductFromCart(removeProduct);
+        }
 
         //Then (Assert):
 
@@ -35,5 +40,19 @@ namespace HW18_SpecFlow.Steps
         {
             await _CartPage.VerifyHeadingVisible(heading);
         }
+
+        [Then(@"I see '([^']*)' in the Cart")]
+        public async Task ThenISeeProductInTheCart(string addedProduct)
+        {
+            await _CartPage.VerifyProductAddedToCart(addedProduct);
+        }
+
+        [Then(@"I do not see '([^']*)' in the Cart")]
+        public async Task ThenIDoNotSeeInTheCart(string removedProduct)
+        {
+            await _CartPage.VerifyProductDeletedFromCart(removedProduct);
+        }
+
+
     }
 }

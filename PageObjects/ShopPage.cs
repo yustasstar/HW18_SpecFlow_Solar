@@ -71,10 +71,10 @@ namespace HW18_SpecFlow.PageObjects
             var productTitleLocator = "//*[@class[starts-with(., 'list-product-title')]]";
             var allProducts = await page.Locator(productTitleLocator).AllInnerTextsAsync();
             var productsList = allProducts.ToList();
-            Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by filter {filterValue} not found");
+            Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by locator {productTitleLocator} not found");
 
-            bool isListContainFilterValue = productsList.All(product => product.ToLower().Contains(filterValue.ToLower()));
-            Assert.That(isListContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
+            bool isAllContainFilterValue = productsList.All(product => product.ToLower().Contains(filterValue.ToLower()));
+            Assert.That(isAllContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
         }
 
         public async Task AddSpecifiedProductToCart(string addProduct)

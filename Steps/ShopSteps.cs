@@ -51,14 +51,9 @@ namespace HW18_SpecFlow.Steps
         }
 
         [When(@"I click '([^']*)' button")]
-        public async Task WhenIClickLinkButton(string buttonName)
+        public async Task WhenIClickPopupButton(string buttonName)
         {
             await _ShopPage.ClickLinkButton(buttonName);
-        }
-        
-        [When(@"AddPopup is closed")]
-        public async Task WhenAddPopupIsClosed()
-        {
             await _ShopPage.VerifyAddPopupNotVisible();
         }
 
