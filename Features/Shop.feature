@@ -67,7 +67,8 @@ Scenario Outline: Add products to Cart:
 	And I click 'Оформити замовлення' button
 	And AddPopup is closed
 	#Assert:
-	Then I am on the 'cart' page see heading 'Товари у кошику'
+	Then I am on the 'cart' page
+	Then I see heading 'Товари у кошику'
 Examples:
 	| First product           | Second product          |
 	| Huawei SUN2000-50KTL-M3 | PYLONTECH US5000        |

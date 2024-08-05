@@ -39,7 +39,7 @@ namespace HW18_SpecFlow.PageObjects
             Assert.That(page.Url, Is.EqualTo(testPageUrl));
         }
 
-        public async Task VerifyHeadingText(string heading)
+        public async Task VerifyHeadingVisible(string heading)
         {
             await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
         }

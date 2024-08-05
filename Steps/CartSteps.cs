@@ -24,11 +24,16 @@ namespace HW18_SpecFlow.Steps
 
         //Then (Assert):
 
-        [Then(@"I am on the '([^']*)' page see heading '([^']*)'")]
-        public async Task WhenIAmOnThePageSee(string pageUrl, string text)
+        [Then(@"I am on the '([^']*)' page")]
+        public async Task WhenIAmOnThePage(string pageUrl)
         {
             await _CartPage.VerifyPageUrl($"{baseUrl}/{pageUrl}");
-            await _CartPage.VerifyHeadingText(text);
+        }
+
+        [Then(@"I see heading '([^']*)'")]
+        public async Task WhenISeeHeading(string heading)
+        {
+            await _CartPage.VerifyHeadingVisible(heading);
         }
     }
 }
