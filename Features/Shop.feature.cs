@@ -20,9 +20,9 @@ namespace HW18_SpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ShopPage")]
+    [NUnit.Framework.DescriptionAttribute("Shop")]
     [NUnit.Framework.CategoryAttribute("PageSetup")]
-    public partial class ShopPageFeature
+    public partial class ShopFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -37,7 +37,7 @@ namespace HW18_SpecFlow.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ShopPage", "As a User, I want to group products into tabs,\r\nI can filter products by values o" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Shop", "As a User, I want to group products into tabs,\r\nI can filter products by values o" +
                     "n those tabs,\r\nI can add items to the cart, \r\nand remove added items from the ca" +
                     "rt.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
@@ -116,7 +116,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify Filter:")]
+        [NUnit.Framework.DescriptionAttribute("Verify Filter on the tab:")]
         [NUnit.Framework.TestCaseAttribute("inverters", "Huawei", null)]
         [NUnit.Framework.TestCaseAttribute("inverters", "Deye", null)]
         [NUnit.Framework.TestCaseAttribute("inverters", "Fronius", null)]
@@ -131,13 +131,13 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("batteries", "AXIOMA", null)]
         [NUnit.Framework.TestCaseAttribute("batteries", "BYD", null)]
         [NUnit.Framework.TestCaseAttribute("batteries", "PYLONTECH", null)]
-        public void VerifyFilter(string tab, string filterValue, string[] exampleTags)
+        public void VerifyFilterOnTheTab(string tab, string filterValue, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Tab", tab);
             argumentsOfScenario.Add("FilterValue", filterValue);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Filter:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Filter on the tab:", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 31
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -168,6 +168,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Add/Remove product in Cart:")]
         [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-50KTL-M3", "PYLONTECH US5000", null)]
         [NUnit.Framework.TestCaseAttribute("Deye SUN-12K-SG04LP3-EU", "Huawei SUN2000-10KTL-M1", null)]
+        [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-8KTL-M1", "Victron Energy MultiPlus II 48/5000/70-50", null)]
+        [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-17KTL-M2", "AXIOMA energy AGM 12В 100Ач, AX-AGM-100", null)]
         public void AddRemoveProductInCart(string firstProduct, string secondProduct, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -226,18 +228,22 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify Product Card:")]
+        [NUnit.Framework.DescriptionAttribute("Verify Product Details:")]
         [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-50KTL-M3", null)]
         [NUnit.Framework.TestCaseAttribute("Deye SUN-12K-SG04LP3-EU", null)]
+        [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-8KTL-M1", null)]
+        [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-17KTL-M2", null)]
         [NUnit.Framework.TestCaseAttribute("PYLONTECH US5000", null)]
         [NUnit.Framework.TestCaseAttribute("Huawei SUN2000-10KTL-M1", null)]
-        public void VerifyProductCard(string productName, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("Victron Energy MultiPlus II 48/5000/70-50", null)]
+        [NUnit.Framework.TestCaseAttribute("AXIOMA energy AGM 12В 100Ач, AX-AGM-100", null)]
+        public void VerifyProductDetails(string productName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("ProductName", productName);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Product Card:", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 97
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Product Details:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 98
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -247,14 +253,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 100
+#line 101
  testRunner.Given("I am on \'shop\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 102
+#line 103
  testRunner.When(string.Format("I click on \'{0}\' product holder", productName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 104
- testRunner.And(string.Format("I see \'{0}\' heading on the Product Details page", productName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 105
+ testRunner.Then(string.Format("I see \'{0}\' heading is displayed", productName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

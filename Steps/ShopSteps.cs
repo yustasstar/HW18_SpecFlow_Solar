@@ -1,6 +1,6 @@
 using HW18_SpecFlow.PageObjects;
 using HW18_SpecFlow.Support;
-using Microsoft.Playwright;
+//using Microsoft.Playwright;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.Steps
@@ -24,7 +24,7 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.GoToPageURL($"{baseUrl}/{pageUrl}");
         }
 
-        //When/And (Act):
+        //When (Act):
 
         [When(@"I click on '([^']*)' tab")]
         public async Task WhenIClickOnTab(string tabName)
@@ -55,6 +55,12 @@ namespace HW18_SpecFlow.Steps
         {
             await _ShopPage.ClickLinkButton(buttonName);
             await _ShopPage.VerifyAddPopupNotVisible();
+        }
+
+        [When(@"I click on '([^']*)' product holder")]
+        public async Task WhenIClickOnProductHolder(string productName)
+        {
+            await _ShopPage.ClickSpecifiedProductHolder(productName);
         }
 
         //Then (Assert):

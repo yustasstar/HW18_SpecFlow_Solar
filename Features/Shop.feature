@@ -1,6 +1,6 @@
 ﻿@PageSetup
 
-Feature: ShopPage
+Feature: Shop
 
 As a User, I want to group products into tabs,
 I can filter products by values on those tabs,
@@ -28,7 +28,7 @@ Examples:
 
 #Verify that catalog filter works correctly
 
-Scenario: Verify Filter:
+Scenario: Verify Filter on the tab:
 
 	#Arrange:
 	Given I am on 'shop/<Tab>' page
@@ -51,10 +51,10 @@ Examples:
 	| solar-panels | Yingli Solar   |
 	| solar-panels | JA Solar       |
 	| solar-panels | Jinko Solar    |
-	#| solar-panels | C&T Solar                      | not all contain full Brand name
 	| batteries    | AXIOMA         |
 	| batteries    | BYD            |
 	| batteries    | PYLONTECH      |
+	#| solar-panels | C&T Solar                      | not all contain full Brand name
 	#| batteries    | Victron Energy                 | different filter value and product name
 	#| batteries    | АДС - Автономні Джерела Струму | different filter value and product name
 
@@ -86,10 +86,11 @@ Scenario Outline: Add/Remove product in Cart:
 	And I see '<Second product>' in the Cart
 
 Examples:
-	| First product           | Second product          |
-	| Huawei SUN2000-50KTL-M3 | PYLONTECH US5000        |
-	| Deye SUN-12K-SG04LP3-EU | Huawei SUN2000-10KTL-M1 |
-
+	| First product           | Second product                            |
+	| Huawei SUN2000-50KTL-M3 | PYLONTECH US5000                          |
+	| Deye SUN-12K-SG04LP3-EU | Huawei SUN2000-10KTL-M1                   |
+	| Huawei SUN2000-8KTL-M1  | Victron Energy MultiPlus II 48/5000/70-50 |
+	| Huawei SUN2000-17KTL-M2 | AXIOMA energy AGM 12В 100Ач, AX-AGM-100   |
 
 
 #Verify that when user clicks on the product then there is a same name/model is displayed on Product Details which was on the product grid
@@ -101,13 +102,17 @@ Scenario: Verify Product Details:
 	#Act:
 	When I click on '<ProductName>' product holder
 	#Assert:
-	And I see '<ProductName>' heading on the Product Details page
+	Then I see '<ProductName>' heading is displayed
 
 Examples:
-	| ProductName             |
-	| Huawei SUN2000-50KTL-M3 |
-	| Deye SUN-12K-SG04LP3-EU |
-	| PYLONTECH US5000        |
-	| Huawei SUN2000-10KTL-M1 |
+	| ProductName                               |
+	| Huawei SUN2000-50KTL-M3                   |
+	| Deye SUN-12K-SG04LP3-EU                   |
+	| Huawei SUN2000-8KTL-M1                    |
+	| Huawei SUN2000-17KTL-M2                   |
+	| PYLONTECH US5000                          |
+	| Huawei SUN2000-10KTL-M1                   |
+	| Victron Energy MultiPlus II 48/5000/70-50 |
+	| AXIOMA energy AGM 12В 100Ач, AX-AGM-100   |
 
 

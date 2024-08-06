@@ -1,9 +1,9 @@
 ﻿using HW18_SpecFlow.Support;
 using Microsoft.Playwright;
 using NUnit.Framework;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
-using System.Linq;
+//using System.Linq;
 
 namespace HW18_SpecFlow.PageObjects
 {
@@ -16,10 +16,6 @@ namespace HW18_SpecFlow.PageObjects
         {
             this.page = page;
         }
-
-        #region Test DATA:
-        //Locators:
-        #endregion
 
         public async Task GoToPageURL(string pageUrl)
         {
@@ -114,8 +110,26 @@ namespace HW18_SpecFlow.PageObjects
 
         public async Task ClickLinkButton(string buttonName)
         {
-            var linkButton = page.GetByRole(AriaRole.Link, new() { Name = $"{buttonName}" });
-            await linkButton.ClickAsync();
+            var button = page.GetByRole(AriaRole.Link, new() { Name = $"{buttonName}" });
+            await button.ClickAsync();
+        }
+
+        public async Task ClickSpecifiedProductHolder(string productName)
+        {
+            var productHolderLocator = "//*[contains(@class, 'card z-depth-1 hoverable')]";
+            var products = await page.QuerySelectorAllAsync(productHolderLocator);
+            Assert.That(products, Is.Not.Empty, "Products not found on the page");
+
+            foreach (var product in products)
+            {
+                var productText = await product.InnerTextAsync();
+                if (productText.ToLower().Contains(productName.ToLower()))
+                {
+                    await product.ClickAsync();
+                    return;
+                }
+            }
+            await Assertions.Expect(page.Locator("//*[contains(@class, 'availability')]")).ToBeVisibleAsync();
         }
 
         public async Task VerifyAddPopupNotVisible()
