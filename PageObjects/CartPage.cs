@@ -1,10 +1,6 @@
-﻿using HW18_SpecFlow.Support;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using NUnit.Framework;
-//using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
-//using System.Linq;
-//using System.Net.Http.Headers;
 
 namespace HW18_SpecFlow.PageObjects
 {
