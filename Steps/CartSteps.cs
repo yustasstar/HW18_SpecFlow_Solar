@@ -10,7 +10,7 @@ namespace HW18_SpecFlow.Steps
     {
         internal static CartPage _CartPage;
 
-        [BeforeScenario("@ShopPageSetup")]
+        [BeforeScenario("@PageSetup")]
         public static void ShopPageBeforeScenario()
         {
             _CartPage = new CartPage(Page);

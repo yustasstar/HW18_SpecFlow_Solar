@@ -10,7 +10,7 @@ namespace HW18_SpecFlow.Steps
     {
         internal static ShopPage _ShopPage;
 
-        [BeforeScenario("@ShopPageSetup")]
+        [BeforeScenario("@PageSetup")]
         public static void ShopPageBeforeScenario()
         {
             _ShopPage = new ShopPage(Page);
@@ -59,7 +59,7 @@ namespace HW18_SpecFlow.Steps
 
         //Then (Assert):
 
-        [Then(@"I see '([^']*)' products")]
+        [Then(@"I see '([^']*)' filtered products")]
         [Obsolete]
         public async Task ThenISeeProducts(string filterValue)
         {
