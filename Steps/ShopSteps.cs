@@ -24,7 +24,7 @@ namespace HW18_SpecFlow.Steps
         [Given(@"I am on '([^']*)' page")]
         public async Task GivenIAmOnPage(string pageUrl)
         {
-            await _ShopPage.GoToPageURL($"{baseUrl}{pageUrl}");
+            await _ShopPage.GoToPageURL($"{baseUrl}shop/{pageUrl}");
         }
 
         //When (Act):
@@ -39,22 +39,30 @@ namespace HW18_SpecFlow.Steps
         [When(@"I add '([^']*)' to the Cart")]
         public async Task WhenIAddProductToTheCart(string product)
         {
-            await _ShopPage.AddSpecifiedProductToCart(product);
-            //verify product is added
+            await _ShopPage.AddProductToCart(product);
+            await _ShopPage.VerifyProductAdded(product);
         }
 
         [When(@"I click '([^']*)' button")]
         public async Task WhenIClickPopupButton(string buttonName)
         {
             await _ShopPage.ClickLinkButton(buttonName);
+        }
+
+        [When(@"I continue shoping")]
+        public async Task WhenIContinueShoping()
+        {
             await _ShopPage.VerifyAddPopupNotVisible();
         }
 
-        [When(@"I click on '([^']*)' product holder")]
-        public async Task WhenIClickOnProductHolder(string productName)
-        {
-            await _ShopPage.ClickSpecifiedProductHolder(productName);
-        }
+
+        //[When(@"I click on '([^']*)' product holder")]
+        //public async Task WhenIClickOnProductHolder(string productName)
+        //{
+        //    await _ShopPage.ClickSpecifiedProductHolder(productName);
+        //}
+
+
 
         //Then (Assert):
 

@@ -31,7 +31,7 @@ namespace HW18_SpecFlow.Steps
         [Then(@"I am on the '([^']*)' page")]
         public async Task WhenIAmOnThePage(string pageUrl)
         {
-            await _CartPage.VerifyPageUrl($"{baseUrl}/{pageUrl}");
+            await _CartPage.VerifyPageUrl($"{baseUrl}{pageUrl}");
         }
 
         [Then(@"I see heading '([^']*)'")]

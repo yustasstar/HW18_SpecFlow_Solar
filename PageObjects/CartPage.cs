@@ -1,5 +1,8 @@
 ﻿using Microsoft.Playwright;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
+using System.Linq;
+using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
@@ -13,20 +16,14 @@ namespace HW18_SpecFlow.PageObjects
         {
             this.page = page;
         }
+        //Locators:
+        private readonly string  productTitleLocator = "//*[contains(@class, 'prod-title')]";
+        private readonly string productRowLocator = "//*[contains(@class, 'cart-product row')]";
+        private readonly string removeBtnLocator = "//*[starts-with(@class, 'remove-from-cart')]";
 
         public async Task VerifyPageUrl(string testPageUrl)
         {
-            try
-            {
-                await page.WaitForURLAsync(testPageUrl);
-            }
-            catch (PlaywrightException e)
-            {
-                if (e.Message.Contains("crash"))
-                {
-                    Console.WriteLine("Page crashed: " + e.Message);
-                }
-            }
+            await page.WaitForURLAsync(testPageUrl);
         }
 
         public async Task VerifyHeadingVisible(string heading)
@@ -37,19 +34,21 @@ namespace HW18_SpecFlow.PageObjects
 
         public async Task VerifyProductAddedToCart(string addProductName)
         {
-            var productTitleLocator = "//*[contains(@class, 'prod-title')]";
-            var allProducts = await page.Locator(productTitleLocator).AllInnerTextsAsync();
-            var productsList = allProducts.ToList();
-            Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by locator {productTitleLocator} not found in the cart");
-
-            bool isAnyContainProductValue = productsList.Any(product => product.ToLower().Contains(addProductName.ToLower()));
-            Assert.That(isAnyContainProductValue, Is.True, $" No product '{addProductName}' in the cart");
+            var products = await page.Locator(productTitleLocator).AllInnerTextsAsync();
+            bool productFound = products.Any(p => p.Contains(addProductName));
+            if (productName.ToLower().Contains(addProduct.ToLower()))
+            {
+                var addToCartButton = await productCard.QuerySelectorAsync(addToCartBtn);
+                await addToCartButton.ClickAsync();
+                return;
+            }
+            //Assert.That(productFound, Is.True, $"{addProductName} is not in the cart");
+            await Assertions.Expect(page.GetByText($"{addProductName}", new() { Exact = true })).ToBeVisibleAsync();
         }
+
 
         public async Task RemoveProductFromCart(string removeProductName)
         {
-            var productRowLocator = "//*[contains(@class, 'cart-product row')]";
-            var removeBtnLocator = "//*[starts-with(@class, 'remove-from-cart')]";
             var products = await page.QuerySelectorAllAsync(productRowLocator);
             Assert.That(products, Is.Not.Empty, "No products in the cart");
 
@@ -59,10 +58,7 @@ namespace HW18_SpecFlow.PageObjects
                 if (productName.ToLower().Contains(removeProductName.ToLower()))
                 {
                     var removeFromCartBtn = await product.QuerySelectorAsync(removeBtnLocator);
-                    if (removeFromCartBtn != null)
-                    {
-                        await removeFromCartBtn.ClickAsync();
-                    }
+                    await removeFromCartBtn.ClickAsync();
                     return;
                 }
             }

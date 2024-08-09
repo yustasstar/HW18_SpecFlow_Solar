@@ -77,7 +77,7 @@ namespace HW18_SpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify Filter works:")]
+        [NUnit.Framework.DescriptionAttribute("Filter:")]
         [NUnit.Framework.TestCaseAttribute("solar-panels", "Сонячні панелі", "Abi-Solar", null)]
         [NUnit.Framework.TestCaseAttribute("solar-panels", "Сонячні панелі", "Полікристал", null)]
         [NUnit.Framework.TestCaseAttribute("solar-panels", "Сонячні панелі", "72", null)]
@@ -89,14 +89,14 @@ namespace HW18_SpecFlow.Features
         [NUnit.Framework.TestCaseAttribute("charge-controllers", "Контролери заряду", "150В", null)]
         [NUnit.Framework.TestCaseAttribute("mounting-systems", "Системи кріплення", "Покрівля", null)]
         [NUnit.Framework.TestCaseAttribute("mounting-systems", "Системи кріплення", "Бітумна черепиця", null)]
-        public void VerifyFilterWorks(string tab, string pageHeading, string filterValue, string[] exampleTags)
+        public void Filter(string tab, string pageHeading, string filterValue, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Tab", tab);
             argumentsOfScenario.Add("Page Heading", pageHeading);
             argumentsOfScenario.Add("Filter Value", filterValue);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Filter works:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter:", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -115,6 +115,62 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 19
  testRunner.Then(string.Format("I see filter works by \'{0}\'", filterValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add/Remove to Cart:")]
+        [NUnit.Framework.TestCaseAttribute("solar-panels", "JA Solar 535Вт", "C&T SOLAR 330 Вт", null)]
+        [NUnit.Framework.TestCaseAttribute("inverters", "Deye SUN-12K-SG04LP3-EU", "Huawei SUN2000-10KTL-M1", null)]
+        public void AddRemoveToCart(string tab, string firstProduct, string secondProduct, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Tab", tab);
+            argumentsOfScenario.Add("First product", firstProduct);
+            argumentsOfScenario.Add("Second product", secondProduct);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add/Remove to Cart:", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 39
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 42
+ testRunner.Given(string.Format("I am on \'{0}\' page", tab), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 45
+ testRunner.When(string.Format("I add \'{0}\' to the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 46
+ testRunner.And("I click \'Продовжити купувати\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 47
+ testRunner.And("I continue shoping", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 48
+ testRunner.And(string.Format("I add \'{0}\' to the Cart", secondProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 49
+ testRunner.And("I click \'Оформити замовлення\' button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 52
+ testRunner.Then("I am on the \'cart\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 53
+ testRunner.And("I see heading \'Товари у кошику\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 54
+ testRunner.And(string.Format("I see \'{0}\' in the Cart", firstProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 55
+ testRunner.And(string.Format("I see \'{0}\' in the Cart", secondProduct), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
