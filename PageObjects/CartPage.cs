@@ -1,4 +1,4 @@
-﻿using Microsoft.Playwright;
+using Microsoft.Playwright;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
@@ -13,7 +13,7 @@ namespace HW18_SpecFlow.PageObjects
             this.page = page;
         }
         //Locators:
-        private readonly string productTitleLocator = "//*'prod-title')]";
+        private readonly string productTitleLocator = "//*[@class='prod-title']";
         private readonly string productRowLocator = "//*[contains(@class, 'cart-product row')]";
         private readonly string removeBtnLocator = "//*[starts-with(@class, 'remove-from-cart')]";
 
