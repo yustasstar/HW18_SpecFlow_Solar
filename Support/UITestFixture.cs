@@ -10,7 +10,7 @@ namespace HW18_SpecFlow.Support
     {
         public static IPage? Page { get; private set; }
         private static IBrowser? browser;
-        internal static string baseUrl = "https://solartechnology.com.ua";
+        internal static string baseUrl = "https://solartechnology.com.ua/shop/";
 
         [BeforeFeature(Order = 1)]
         public static async Task Setup()

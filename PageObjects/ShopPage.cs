@@ -17,18 +17,6 @@ namespace HW18_SpecFlow.PageObjects
         public async Task GoToPageURL(string pageUrl)
         {
             await page.GotoAsync(pageUrl);
-
-            try
-            {
-                await page.WaitForURLAsync(pageUrl);
-            }
-            catch (PlaywrightException e)
-            {
-                if (e.Message.Contains("crash"))
-                {
-                    Console.WriteLine("Page crashed: " + e.Message);
-                }
-            }
         }
 
         public async Task VerifyH1Visability(string h1)
@@ -36,38 +24,25 @@ namespace HW18_SpecFlow.PageObjects
             await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = h1, Level = 1 })).ToBeVisibleAsync();
         }
 
-        public async Task ClickOnTabLink(string tabName)
-        {
-            await page.GetByRole(AriaRole.Link, new() { Name = tabName }).ClickAsync();
-        }
-
         public async Task ClickOnFilterButton()
         {
-            var filterButtonLocator = "//*[contains(@class, 'filter-button')]";
-            var filterButton = page.Locator(filterButtonLocator);
-            await filterButton.ClickAsync();
+            await page.Locator("//*[contains(@class, 'filter-button')]").ClickAsync();
         }
 
-        public async Task VerifyFilterChecked(string filterValue)
+        public async Task SelectCheckbox(string filterValue)
         {
-            var filterCheckboxLocator = $"//span[text()='{filterValue}']";
-            var filter = page.Locator(filterCheckboxLocator);
+            var filterCheckbox = page.Locator($"//span[text()='{filterValue}']");
 
-            await filter.CheckAsync();
-            await Assertions.Expect(filter).ToBeCheckedAsync();
-        }
-
-        [Obsolete]
-        public async Task VerifyFilteredProducts(string filterValue)
-        {
+            await filterCheckbox.CheckAsync();
+            await Assertions.Expect(filterCheckbox).ToBeCheckedAsync();
             await page.WaitForNavigationAsync();
-            var productTitleLocator = "//*[@class[starts-with(., 'list-product-title')]]";
-            var allProducts = await page.Locator(productTitleLocator).AllInnerTextsAsync();
-            var productsList = allProducts.ToList();
-            Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by locator {productTitleLocator} not found");
+        }
 
-            bool isAllContainFilterValue = productsList.All(product => product.ToLower().Contains(filterValue.ToLower()));
-            Assert.That(isAllContainFilterValue, Is.True, $"Not all Products contains the text {filterValue}");
+        public async Task<(int productCount, int pageCount)> GetCountOfItems()
+        {
+            var productCount = await page.Locator("//div[contains (@class, 'prod-holder')]").CountAsync();
+            var pageCount = await page.Locator("//ul[@class = 'pagination']").GetByRole(AriaRole.Listitem).CountAsync();
+            return (productCount ,pageCount);
         }
 
         public async Task AddSpecifiedProductToCart(string addProduct)
@@ -76,7 +51,6 @@ namespace HW18_SpecFlow.PageObjects
             var addToCartBtnLocator = "//*[@class[starts-with(., 'add-product-to-cart')]]";
             var addPopup = page.Locator("//*[@id='cart-modal']");
 
-            // Get all product holders on the page
             var productCards = await page.QuerySelectorAllAsync(productHolderLocator);
             Assert.That(productCards, Is.Not.Empty, "Products not found on the page");
 
@@ -131,8 +105,8 @@ namespace HW18_SpecFlow.PageObjects
 
         public async Task VerifyAddPopupNotVisible()
         {
-            var addModal = page.Locator("//*[@id='cart-modal']");
-            await Assertions.Expect(addModal).Not.ToBeVisibleAsync();
+            //var addModal = page.Locator("//*[@id='cart-modal']");
+            await Assertions.Expect(page.Locator("//*[@id='cart-modal']")).Not.ToBeVisibleAsync();
         }
     }
 }
