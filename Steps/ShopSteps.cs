@@ -1,10 +1,7 @@
 using HW18_SpecFlow.PageObjects;
 using HW18_SpecFlow.Support;
-using Microsoft.Playwright;
 using NUnit.Framework;
-using System.Runtime.CompilerServices;
 using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.CommonModels;
 
 namespace HW18_SpecFlow.Steps
 {
@@ -27,6 +24,7 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.GoToPageURL($"{baseUrl}shop/{pageUrl}");
         }
 
+
         //When (Act):
 
         [When(@"I see '([^']*)'")]
@@ -35,18 +33,11 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.VerifyH1Visability(h1);
         }
 
-
         [When(@"I add '([^']*)' to the Cart")]
         public async Task WhenIAddProductToTheCart(string product)
         {
             await _ShopPage.AddProductToCart(product);
             await _ShopPage.VerifyProductAdded(product);
-        }
-
-        [When(@"I click '([^']*)' button")]
-        public async Task WhenIClickPopupButton(string buttonName)
-        {
-            await _ShopPage.ClickLinkButton(buttonName);
         }
 
         [When(@"I continue shoping")]
@@ -55,16 +46,20 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.VerifyAddPopupNotVisible();
         }
 
+        [When(@"I click '([^']*)' button")]
+        public async Task WhenIClickPopupButton(string buttonName)
+        {
+            await _ShopPage.ClickLinkButton(buttonName);
+        }
 
-        //[When(@"I click on '([^']*)' product holder")]
-        //public async Task WhenIClickOnProductHolder(string productName)
-        //{
-        //    await _ShopPage.ClickSpecifiedProductHolder(productName);
-        //}
+        [When(@"I click on '([^']*)' product holder")]
+        public async Task WhenIClickOnProductHolder(string productName)
+        {
+            await _ShopPage.ClickSpecifiedProductHolder(productName);
+        }
 
 
-
-        //Then (Assert):
+        //Then(Assert):
 
         [Then(@"I see filter works by '([^']*)'")]
         public async Task ThenISeeFilterWorksBy(string filterValue)

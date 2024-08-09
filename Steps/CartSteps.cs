@@ -21,35 +21,35 @@ namespace HW18_SpecFlow.Steps
         //When (Act):
 
         [When(@"I remove '([^']*)' from the Cart")]
-        public async Task WhenIRemoveFromTheCart(string removeProduct)
+        public async Task WhenIRemoveFromTheCart(string product)
         {
-            await _CartPage.RemoveProductFromCart(removeProduct);
+            await _CartPage.RemoveProductFromCart(product);
         }
 
-        //Then (Assert):
+        //Then(Assert) :
 
         [Then(@"I am on the '([^']*)' page")]
-        public async Task WhenIAmOnThePage(string pageUrl)
+        public async Task ThenIAmOnThePage(string pageUrl)
         {
             await _CartPage.VerifyPageUrl($"{baseUrl}{pageUrl}");
         }
 
         [Then(@"I see heading '([^']*)'")]
-        public async Task WhenISeeHeading(string heading)
+        public async Task ThenISeeHeading(string heading)
         {
             await _CartPage.VerifyHeadingVisible(heading);
         }
 
         [Then(@"I see '([^']*)' in the Cart")]
-        public async Task ThenISeeProductInTheCart(string addedProduct)
+        public async Task ThenISeeProductInTheCart(string product)
         {
-            await _CartPage.VerifyProductAddedToCart(addedProduct);
+            await _CartPage.VerifyProductAddedToCart(product);
         }
 
         [Then(@"I do not see '([^']*)' in the Cart")]
-        public async Task ThenIDoNotSeeInTheCart(string removedProduct)
+        public async Task ThenIDoNotSeeInTheCart(string product)
         {
-            await _CartPage.VerifyProductDeletedFromCart(removedProduct);
+            await _CartPage.VerifyProductDeletedFromCart(product);
         }
     }
 }

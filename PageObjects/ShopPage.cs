@@ -44,6 +44,11 @@ namespace HW18_SpecFlow.PageObjects
             await page.WaitForNavigationAsync();
         }
 
+        public async Task ClickLinkButton(string buttonName)
+        {
+            await page.GetByRole(AriaRole.Link, new() { Name = $"{buttonName}" }).ClickAsync();
+        }
+
         public async Task<(int productCount, int pageCount)> GetCountOfItems()
         {
             var productCount = await page.Locator(prodHolder).CountAsync();
@@ -51,20 +56,9 @@ namespace HW18_SpecFlow.PageObjects
             return (productCount, pageCount);
         }
 
-        public async Task AddProductToCart(string addProduct)
+        public async Task AddProductToCart(string productName)
         {
-            var productCards = await page.QuerySelectorAllAsync(prodHolder);
-
-            foreach (var productCard in productCards)
-            {
-                var productName = await productCard.InnerTextAsync();
-                if (productName.ToLower().Contains(addProduct.ToLower()))
-                {
-                    var addToCartButton = await productCard.QuerySelectorAsync(addToCartBtn);
-                    await addToCartButton.ClickAsync();
-                    return;
-                }
-            }
+            await page.Locator(prodHolder).Filter(new() { Has = page.GetByRole(AriaRole.Link, new() { Name = productName }) }).Locator(addToCartBtn).ClickAsync();
         }
 
         public async Task VerifyProductAdded(string addProduct)
@@ -78,29 +72,10 @@ namespace HW18_SpecFlow.PageObjects
             await Assertions.Expect(page.Locator($"{addPopup}")).Not.ToBeVisibleAsync();
         }
 
-        public async Task ClickLinkButton(string buttonName)
+        public async Task ClickSpecifiedProductHolder(string productName)
         {
-            await page.GetByRole(AriaRole.Link, new() { Name = $"{buttonName}" }).ClickAsync();
-        }        
-
-
-        //public async Task ClickSpecifiedProductHolder(string productName)
-        //{
-        //    var productHolderLocator = "//*[contains(@class, 'card z-depth-1 hoverable')]";
-        //    var products = await page.QuerySelectorAllAsync(productHolderLocator);
-        //    Assert.That(products, Is.Not.Empty, "Products not found on the page");
-
-        //    foreach (var product in products)
-        //    {
-        //        var productText = await product.InnerTextAsync();
-        //        if (productText.ToLower().Contains(productName.ToLower()))
-        //        {
-        //            await product.ClickAsync();
-        //            return;
-        //        }
-        //    }
-        //    await Assertions.Expect(page.Locator("//*[contains(@class, 'availability')]")).ToBeVisibleAsync();
-        //}
+            await page.Locator(prodHolder).Filter(new() { Has = page.GetByRole(AriaRole.Link, new() { Name = productName }) }).ClickAsync();
+        }
     }
 }
 
