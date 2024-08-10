@@ -45,7 +45,7 @@ namespace HW18_SpecFlow.Steps
             _featureContext["countBefore"] = resultBefore;
         }
 
-        [When(@"I see select filter by '([^']*)'")]
+        [When(@"I select filter by '([^']*)'")]
         public async Task WhenISelectFilter(string filterValue)
         {
             await _ShopPage.ClickOnFilterButton();

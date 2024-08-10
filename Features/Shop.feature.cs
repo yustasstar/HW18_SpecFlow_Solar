@@ -117,7 +117,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I see products on the page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 19
- testRunner.When(string.Format("I see select filter by \'{0}\'", filterValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I select filter by \'{0}\'", filterValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
  testRunner.Then(string.Format("I see filter works by \'{0}\'", filterValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
