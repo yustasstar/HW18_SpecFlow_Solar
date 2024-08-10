@@ -24,7 +24,6 @@ namespace HW18_SpecFlow.Steps
             await _ShopPage.GoToPageURL($"{baseUrl}shop/{pageUrl}");
         }
 
-
         //When (Act):
 
         [When(@"I see '([^']*)'")]
@@ -57,7 +56,6 @@ namespace HW18_SpecFlow.Steps
         {
             await _ShopPage.ClickSpecifiedProductHolder(productName);
         }
-
 
         //Then(Assert):
 
