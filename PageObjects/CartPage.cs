@@ -1,5 +1,4 @@
-﻿using Microsoft.Playwright;
-using NUnit.Framework;
+using Microsoft.Playwright;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
@@ -13,20 +12,14 @@ namespace HW18_SpecFlow.PageObjects
         {
             this.page = page;
         }
+        //Locators:
+        private readonly string productTitleLocator = "//*[@class='prod-title']";
+        private readonly string productRowLocator = "//*[contains(@class, 'cart-product row')]";
+        private readonly string removeBtnLocator = "//*[starts-with(@class, 'remove-from-cart')]";
 
-        public async Task VerifyPageUrl(string testPageUrl)
+        public async Task VerifyPageUrl(string pageUrl)
         {
-            try
-            {
-                await page.WaitForURLAsync(testPageUrl);
-            }
-            catch (PlaywrightException e)
-            {
-                if (e.Message.Contains("crash"))
-                {
-                    Console.WriteLine("Page crashed: " + e.Message);
-                }
-            }
+            await page.WaitForURLAsync(pageUrl);
         }
 
         public async Task VerifyHeadingVisible(string heading)
@@ -35,43 +28,20 @@ namespace HW18_SpecFlow.PageObjects
             await Assertions.Expect(headingLocator).ToBeVisibleAsync();
         }
 
-        public async Task VerifyProductAddedToCart(string addProductName)
+        public async Task VerifyProductAddedToCart(string productName)
         {
-            var productTitleLocator = "//*[contains(@class, 'prod-title')]";
-            var allProducts = await page.Locator(productTitleLocator).AllInnerTextsAsync();
-            var productsList = allProducts.ToList();
-            Assert.That(productsList.Count, Is.GreaterThan(0), $"Products by locator {productTitleLocator} not found in the cart");
-
-            bool isAnyContainProductValue = productsList.Any(product => product.ToLower().Contains(addProductName.ToLower()));
-            Assert.That(isAnyContainProductValue, Is.True, $" No product '{addProductName}' in the cart");
+            await Assertions.Expect(page.GetByRole(AriaRole.Listitem).Filter(new() { HasText = productName })).ToBeVisibleAsync();
         }
 
-        public async Task RemoveProductFromCart(string removeProductName)
+        public async Task RemoveProductFromCart(string productName)
         {
-            var productRowLocator = "//*[contains(@class, 'cart-product row')]";
-            var removeBtnLocator = "//*[starts-with(@class, 'remove-from-cart')]";
-            var products = await page.QuerySelectorAllAsync(productRowLocator);
-            Assert.That(products, Is.Not.Empty, "No products in the cart");
-
-            foreach (var product in products)
-            {
-                var productName = await product.InnerTextAsync();
-                if (productName.ToLower().Contains(removeProductName.ToLower()))
-                {
-                    var removeFromCartBtn = await product.QuerySelectorAsync(removeBtnLocator);
-                    if (removeFromCartBtn != null)
-                    {
-                        await removeFromCartBtn.ClickAsync();
-                    }
-                    return;
-                }
-            }
+            await page.GetByRole(AriaRole.Listitem).Filter(new() { Has = page.GetByRole(AriaRole.Link, new() { Name = productName })}).Locator(removeBtnLocator).ClickAsync();
         }
 
-        public async Task VerifyProductDeletedFromCart(string removedProduct)
+        public async Task VerifyProductDeletedFromCart(string product)
         {
             await Assertions.Expect(page.GetByText("Товар видалено з кошика")).ToBeVisibleAsync();
-            await Assertions.Expect(page.GetByText($"{removedProduct}")).Not.ToBeVisibleAsync();
+            await Assertions.Expect(page.GetByText($"{product}")).Not.ToBeVisibleAsync();
         }
     }
 }
