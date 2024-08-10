@@ -1,4 +1,4 @@
-﻿using Microsoft.Playwright;
+using Microsoft.Playwright;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
