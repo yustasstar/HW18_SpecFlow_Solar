@@ -1,6 +1,7 @@
 using HW18_SpecFlow.PageObjects;
 using HW18_SpecFlow.Support;
 using NUnit.Framework;
+using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.Steps
@@ -9,11 +10,16 @@ namespace HW18_SpecFlow.Steps
     internal sealed class ShopSteps : UITestFixture
     {
         internal static ShopPage _ShopPage;
+        private readonly FeatureContext _featureContext;
 
         [BeforeScenario("@PageSetup")]
         public static void ShopPageBeforeScenario()
         {
             _ShopPage = new ShopPage(Page);
+        }
+        public ShopSteps(FeatureContext featureContext)
+        {
+            _featureContext = featureContext;
         }
 
         //Given (Arrange):
@@ -21,15 +27,29 @@ namespace HW18_SpecFlow.Steps
         [Given(@"I am on '([^']*)' page")]
         public async Task GivenIAmOnPage(string pageUrl)
         {
-            await _ShopPage.GoToPageURL($"{baseUrl}shop/{pageUrl}");
+            await _ShopPage.GoToPageURL(pageUrl);
         }
 
         //When (Act):
 
         [When(@"I see '([^']*)'")]
-        public async Task WhenISee(string h1)
+        public async Task WhenISeeH1(string h1)
         {
             await _ShopPage.VerifyH1Visability(h1);
+        }
+
+        [When(@"I see products on the page")]
+        public async Task WhenISeeProductsOnThePage()
+        {
+            var resultBefore = await _ShopPage.GetCountOfItems();
+            _featureContext["countBefore"] = resultBefore;
+        }
+
+        [When(@"I see select filter by '([^']*)'")]
+        public async Task WhenISelectFilter(string filterValue)
+        {
+            await _ShopPage.ClickOnFilterButton();
+            await _ShopPage.SelectCheckbox(filterValue);
         }
 
         [When(@"I add '([^']*)' to the Cart")]
@@ -62,13 +82,16 @@ namespace HW18_SpecFlow.Steps
         [Then(@"I see filter works by '([^']*)'")]
         public async Task ThenISeeFilterWorksBy(string filterValue)
         {
-            var resultBefore = await _ShopPage.GetCountOfItems();
-            await _ShopPage.ClickOnFilterButton();
-            await _ShopPage.SelectCheckbox(filterValue);
-
+            var resultBefore = _featureContext.Get<(int, int)>("countBefore");
             var resultAfter = await _ShopPage.GetCountOfItems();
             Assert.That(resultAfter, Is.LessThan(resultBefore),
                 $"Expected the count of items after filtering should be less than before. Before: {resultBefore}, After: {resultAfter}");
+        }
+
+        [Then(@"I see '([^']*)'")]
+        public async Task ThenISee(string h1)
+        {
+            await _ShopPage.VerifyH1Visability(h1);
         }
     }
 }

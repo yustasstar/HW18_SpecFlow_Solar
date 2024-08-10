@@ -15,6 +15,8 @@ Scenario: Filter:
 	Given I am on '<Tab>' page
 	#Act:
 	When I see '<Page Heading>'
+	When I see products on the page
+	When I see select filter by '<Filter Value>'
 	#Assert:
 	Then I see filter works by '<Filter Value>'
 
@@ -75,7 +77,7 @@ Scenario: Product Details:
 	#Act:
 	When I click on '<ProductName>' product holder
 	#Assert:
-	When I see '<ProductName>'
+	Then I see '<ProductName>'
 
 Examples:
 	| Tab       | ProductName             |

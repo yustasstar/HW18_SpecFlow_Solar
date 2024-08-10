@@ -1,10 +1,11 @@
-﻿using Microsoft.Playwright;
+﻿using HW18_SpecFlow.Support;
+using Microsoft.Playwright;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
 {
     [Binding]
-    internal class ShopPage
+    internal class ShopPage : UITestFixture
     {
         private readonly IPage page;
 
@@ -22,7 +23,7 @@ namespace HW18_SpecFlow.PageObjects
 
         public async Task GoToPageURL(string pageUrl)
         {
-            await page.GotoAsync(pageUrl);
+            await page.GotoAsync($"{baseUrl}shop/{pageUrl}");
         }
 
         public async Task VerifyH1Visability(string h1)
