@@ -1,43 +1,81 @@
 ﻿using HW18_SpecFlow.Support;
 using Microsoft.Playwright;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.PageObjects
 {
     [Binding]
-    internal class ShopPage
+    internal class ShopPage : UITestFixture
     {
-        private readonly IPage Page;
-        private readonly string testPageUrl = "https://solartechnology.com.ua/shop";
+        private readonly IPage page;
 
         public ShopPage(IPage page)
         {
-            Page = page;
+            this.page = page;
         }
-
-        #region Test DATA:
         //Locators:
-        //private readonly string tableLocator = ".ReactTable";
-        #endregion
+        private readonly string addPopup = "//*[@id='cart-modal']";
+        private readonly string prodHolder = "//div[contains (@class, 'prod-holder')]";
+        private readonly string addToCartBtn = "//*[@class[starts-with(., 'add-product-to-cart')]]";
+        private readonly string filterBtn = "//*[contains(@class, 'filter-button')]";
+        private readonly string pageItemsCounter = "//ul[@class = 'pagination']";
 
-        #region Page
-        public async Task GoToTestPageURL()
+
+        public async Task GoToPageURL(string pageUrl)
         {
-            await Page.GotoAsync(testPageUrl);
-        }
-        public async Task WaitForUrlLoading()
-        {
-            await Page.WaitForURLAsync(testPageUrl);
+            await page.GotoAsync($"{baseUrl}shop/{pageUrl}");
         }
 
-        public async Task IsPageH1Visible(string heading)
+        public async Task VerifyH1Visability(string h1)
         {
-            await Assertions.Expect(Page.GetByRole(AriaRole.Heading, new() { Name = heading })).ToBeVisibleAsync();
+            await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = h1, Level = 1 })).ToBeVisibleAsync();
         }
-        #endregion
+
+        public async Task ClickOnFilterButton()
+        {
+            await page.Locator(filterBtn).ClickAsync();
+        }
+
+        public async Task SelectCheckbox(string filterValue)
+        {
+            var filterCheckbox = page.Locator($"//span[text()='{filterValue}']");
+            await filterCheckbox.CheckAsync();
+            await Assertions.Expect(filterCheckbox).ToBeCheckedAsync();
+            await page.WaitForNavigationAsync();
+        }
+
+        public async Task ClickLinkButton(string buttonName)
+        {
+            await page.GetByRole(AriaRole.Link, new() { Name = $"{buttonName}" }).ClickAsync();
+        }
+
+        public async Task<(int productCount, int pageCount)> GetCountOfItems()
+        {
+            var productCount = await page.Locator(prodHolder).CountAsync();
+            var pageCount = await page.Locator(pageItemsCounter).GetByRole(AriaRole.Listitem).CountAsync();
+            return (productCount, pageCount);
+        }
+
+        public async Task AddProductToCart(string productName)
+        {
+            await page.Locator(prodHolder).Filter(new() { Has = page.GetByRole(AriaRole.Link, new() { Name = productName }) }).Locator(addToCartBtn).ClickAsync();
+        }
+
+        public async Task VerifyProductAdded(string addProduct)
+        {
+            await Assertions.Expect(page.Locator($"{addPopup}")).ToContainTextAsync($"Товар додано у кошик");
+            await Assertions.Expect(page.GetByText($"{addProduct}", new() { Exact = true })).ToBeVisibleAsync();
+        }
+
+        public async Task VerifyAddPopupNotVisible()
+        {
+            await Assertions.Expect(page.Locator($"{addPopup}")).Not.ToBeVisibleAsync();
+        }
+
+        public async Task ClickSpecifiedProductHolder(string productName)
+        {
+            await page.Locator(prodHolder).Filter(new() { Has = page.GetByRole(AriaRole.Link, new() { Name = productName }) }).ClickAsync();
+        }
     }
 }
+
