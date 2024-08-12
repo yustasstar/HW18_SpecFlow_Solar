@@ -8,25 +8,34 @@ namespace HW18_SpecFlow.Support
     [Binding]
     internal class UITestFixture
     {
+        public static IBrowserContext? Context { get; private set; }
         public static IPage? Page { get; private set; }
-        private static IBrowser? browser;
+        private static IBrowser? Browser;
         internal static string baseUrl = "https://solartechnology.com.ua/";
 
         [BeforeFeature(Order = 1)]
         public static async Task Setup()
         {
             var playwrightDriver = await Playwright.CreateAsync();
-            browser = await playwrightDriver.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            Browser = await playwrightDriver.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
                 Headless = false
             });
 
-            var context = await browser.NewContextAsync(new BrowserNewContextOptions
+            Context = await Browser.NewContextAsync(new BrowserNewContextOptions
             {
                 ViewportSize = new ViewportSize { Width = 1885, Height = 945 },
             });
 
-            Page = await context.NewPageAsync();
+            await Context.Tracing.StartAsync(new()
+            {
+                Title = TestContext.CurrentContext.Test.ClassName + "." + TestContext.CurrentContext.Test.Name,
+                Screenshots = true,
+                Snapshots = true,
+                Sources = true
+            });
+
+            Page = await Context.NewPageAsync();
             Page.SetDefaultTimeout(15000);
             //Page.PauseAsync();
         }
@@ -34,8 +43,23 @@ namespace HW18_SpecFlow.Support
         [AfterFeature]
         public static async Task Teardown()
         {
+            var failed = TestContext.CurrentContext.Result.Outcome == NUnit.Framework.Interfaces.ResultState.Error
+           || TestContext.CurrentContext.Result.Outcome == NUnit.Framework.Interfaces.ResultState.Failure;
+
+            if (Context != null)
+            {
+                await Context.Tracing.StopAsync(new()
+                {
+                    Path = failed ? Path.Combine(
+                    TestContext.CurrentContext.WorkDirectory,
+                    "playwright-traces",
+                    $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
+                ) : null,
+                });
+            }
+
             if (Page != null) { await Page.CloseAsync(); }
-            if (browser != null) { await browser.CloseAsync(); }
+            if (Browser != null) { await Browser.CloseAsync(); }
         }
     }
 }

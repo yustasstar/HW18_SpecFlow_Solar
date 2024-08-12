@@ -1,7 +1,6 @@
 using HW18_SpecFlow.PageObjects;
 using HW18_SpecFlow.Support;
 using NUnit.Framework;
-using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
 namespace HW18_SpecFlow.Steps
