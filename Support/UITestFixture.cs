@@ -10,19 +10,19 @@ namespace HW18_SpecFlow.Support
     {
         public static IBrowserContext? Context { get; private set; }
         public static IPage? Page { get; private set; }
-        private static IBrowser? browser;
+        private static IBrowser? Browser;
         internal static string baseUrl = "https://solartechnology.com.ua/";
 
         [BeforeFeature(Order = 1)]
         public static async Task Setup()
         {
             var playwrightDriver = await Playwright.CreateAsync();
-            browser = await playwrightDriver.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            Browser = await playwrightDriver.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
                 Headless = false
             });
 
-            Context = await browser.NewContextAsync(new BrowserNewContextOptions
+            Context = await Browser.NewContextAsync(new BrowserNewContextOptions
             {
                 ViewportSize = new ViewportSize { Width = 1885, Height = 945 },
             });
@@ -59,7 +59,7 @@ namespace HW18_SpecFlow.Support
             }
 
             if (Page != null) { await Page.CloseAsync(); }
-            if (browser != null) { await browser.CloseAsync(); }
+            if (Browser != null) { await Browser.CloseAsync(); }
         }
     }
 }

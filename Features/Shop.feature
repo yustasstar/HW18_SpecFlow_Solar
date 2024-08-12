@@ -1,7 +1,6 @@
 ﻿@PageSetup
 
 Feature: Shop
-
 As a User, 
 I want to filter products by values,
 I should br able to add items to the cart, 
